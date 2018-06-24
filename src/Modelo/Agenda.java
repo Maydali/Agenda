@@ -12,13 +12,14 @@ import java.util.ArrayList;
  * @author Maydali
  */
 public class Agenda {
-    private ArrayList<Contacto> contactos;
 
-    public Agenda(ArrayList<Contacto> contactos) {
-        this.contactos = contactos;
-    }
+    private ArrayList<Contacto> contactos = new ArrayList<>();
 
     public Agenda() {
+    }
+
+    public void guardarContacto(Contacto contacto) {
+        getContactos().add(contacto);
     }
 
     public ArrayList<Contacto> getContactos() {
@@ -28,6 +29,5 @@ public class Agenda {
     public void setContactos(ArrayList<Contacto> contactos) {
         this.contactos = contactos;
     }
-    
-    
+
 }

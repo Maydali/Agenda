@@ -6,9 +6,8 @@
 package Main;
 
 import Control.ControlVistaContactos;
-import Modelo.Contacto;
+import Modelo.Agenda;
 import Vista.VistaContactos;
-
 
 /**
  *
@@ -21,10 +20,10 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic her
-        Contacto contacto = new Contacto();
+        Agenda agenda = new Agenda();
         VistaContactos vistaContactos = new VistaContactos();
-        ControlVistaContactos controlContacto = new ControlVistaContactos(vistaContactos,contacto);
+        ControlVistaContactos controlContacto = new ControlVistaContactos(vistaContactos, agenda);
         controlContacto.iniciar();
     }
-    
+
 }

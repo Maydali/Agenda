@@ -12,21 +12,16 @@ import java.util.ArrayList;
  * @author Maydali
  */
 public class Contacto {
+
     private String nombre;
     private ArrayList numeros;
-   
+
     public Contacto() {
     }
 
     public Contacto(String nombre, ArrayList numeros) {
         this.nombre = nombre;
         this.numeros = numeros;
-    }
-    public void añadirContacto(String nombre,ArrayList numero){
-       
-        Contacto nuevoContacto = new Contacto(nombre, numero);
-    
-        
     }
 
     public String getNombre() {
@@ -44,8 +39,5 @@ public class Contacto {
     public void setNumeros(ArrayList numeros) {
         this.numeros = numeros;
     }
-    
-    
-    
-    
+
 }

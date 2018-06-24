@@ -5,7 +5,7 @@
  */
 package Control;
 
-
+import Modelo.Agenda;
 import Modelo.Contacto;
 import Vista.DatosContacto;
 import Vista.VistaContactos;
@@ -19,7 +19,6 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Maydali
@@ -27,36 +26,35 @@ import javax.swing.JOptionPane;
 public class ControlVistaContactos implements ActionListener {
 
     VistaContactos vistaContactos;
-    ArrayList<Contacto> contactoArreglo= new ArrayList<>();;
+    ArrayList<Contacto> contactoArreglo = new ArrayList<>();
+    ;
+    Agenda agenda;
     Contacto contacto;
     DefaultListModel modelo = new DefaultListModel();
     JList contactos = new JList();
 
-
     public ControlVistaContactos() {
     }
-    
 
-    public ControlVistaContactos(VistaContactos vistaContactos,Contacto contacto) {
+    public ControlVistaContactos(VistaContactos vistaContactos, Agenda agenda) {
         this.vistaContactos = vistaContactos;
-        this.contacto = contacto;
+        this.agenda = agenda;
         VistaContactos.añadir.addActionListener(this);
     }
 
     public void iniciar() {
         vistaContactos.setVisible(true);
-       
+
     }
 
     public void contactosAnadidos() {
-       contactoArreglo.add(contacto);
-        
-         for(int j=0; j<contactoArreglo.size(); j++){     
-             System.out.println("nom " + contactoArreglo.get(j).getNombre());
-              modelo.addElement(contactoArreglo.get(j).getNombre());
+
+        for (int j = 0; j < agenda.getContactos().size(); j++) {
+            System.out.println("nombre" + agenda.getContactos().get(j).getNombre());
+            modelo.addElement(agenda.getContactos().get(j).getNombre());
         }
-         contactos.setModel(modelo);
-       
+        contactos.setModel(modelo);
+
         VistaContactos.panel.add(contactos, BorderLayout.CENTER);
         VistaContactos.panel.setLayout(new FlowLayout());
         JButton update = new JButton("Actualizar");
@@ -72,16 +70,14 @@ public class ControlVistaContactos implements ActionListener {
         VistaContactos.panel.updateUI();
         VistaContactos.panel.repaint();
         vistaContactos.setVisible(true);
-     
-        
-        
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (VistaContactos.añadir == e.getSource()) {
             DatosContacto datosContacto = new DatosContacto();
-            ControlDatosContacto controlDatos = new ControlDatosContacto(datosContacto, contacto);
+            ControlDatosContacto controlDatos = new ControlDatosContacto(datosContacto, agenda, contacto);
             controlDatos.iniciar();
             vistaContactos.setVisible(false);
         }
@@ -93,7 +89,4 @@ public class ControlVistaContactos implements ActionListener {
         }
     }
 
-    
-    
-    
 }
