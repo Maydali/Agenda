@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -85,6 +86,15 @@ public class ControlVistaContactos implements ActionListener {
         });
     }
 
+    public boolean seleccionado() {
+        if (!contactos.isSelectionEmpty()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un contacto");
+            return false;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (VistaContactos.añadir == e.getSource()) {
@@ -93,7 +103,7 @@ public class ControlVistaContactos implements ActionListener {
             controlDatos.iniciar();
             vistaContactos.setVisible(false);
         }
-        if (e.getActionCommand().equals("Actualizar")) {
+        if (e.getActionCommand().equals("Actualizar") && seleccionado()) {
             int id = contactos.getSelectedIndex();
             Contacto seleccionado = agenda.buscarContacto(id);
             RegistroContacto actualizarContacto = new RegistroContacto();
@@ -101,13 +111,13 @@ public class ControlVistaContactos implements ActionListener {
             controlRegistro.actualizarContacto();
 
         }
-        if (e.getActionCommand().equals("Borrar")) {
+        if (e.getActionCommand().equals("Borrar") && seleccionado()) {
             int id = contactos.getSelectedIndex();
             Contacto seleccionado = agenda.buscarContacto(id);
             agenda.eliminarContacto(seleccionado);
             modelo.remove(id);
-            for (int i = 0; i < agenda.getContactos().size(); i++) {
-                System.out.println("contactosexistentes " + agenda.getContactos().get(i).getNombre());
+            if(agenda.getContactos().isEmpty()){
+                VistaContactos.panel.removeAll();
             }
 
         }

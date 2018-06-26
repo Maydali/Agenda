@@ -86,6 +86,15 @@ public class ControlRegistroContacto implements ActionListener {
         return accion;
     }
 
+    private boolean datosCompletos() {
+        if (RegistroContacto.Nombre.getText().isEmpty() || RegistroContacto.telefonos.getModel().getSize() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los datos");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     private void agendarContacto(String accion) {
         if (accion.equals("actualizar")) {
             System.out.println("Contacto Actualizado");
@@ -95,9 +104,18 @@ public class ControlRegistroContacto implements ActionListener {
 
     }
 
+    private boolean isNumber() {
+        try {
+            int numero = Integer.parseInt(RegistroContacto.telefono.getText());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (RegistroContacto.Añadir == e.getSource()) {
+        if (RegistroContacto.Añadir == e.getSource() && datosCompletos()) {
             String accion = setDatos();
             agendarContacto(accion);
             VistaContactos vistaInicial = new VistaContactos();
@@ -107,13 +125,14 @@ public class ControlRegistroContacto implements ActionListener {
             datosContacto.setVisible(false);
         }
         if (RegistroContacto.Agregar == e.getSource()) {
-            if (!RegistroContacto.telefono.getText().equals("")) {
+
+            if (!RegistroContacto.telefono.getText().equals("") && isNumber()) {
                 String telefono = RegistroContacto.telefono.getText();
                 modelo.addElement(telefono);
                 RegistroContacto.telefonos.setModel(modelo);
                 RegistroContacto.telefono.setText(null);
             } else {
-                JOptionPane.showMessageDialog(null, "Debe llenar el campo");
+                JOptionPane.showMessageDialog(null, "Debe llenar el campo y no puede introducir caracteres");
             }
 
         }

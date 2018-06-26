@@ -21,18 +21,16 @@ public class Agenda {
     public void guardarContacto(Contacto contacto) {
         getContactos().add(contacto);
     }
-
-    public void eliminarContacto(Contacto contacto) {
+      public void eliminarContacto(Contacto contacto){
         getContactos().remove(contacto);
     }
-
-    public Contacto buscarContacto(int index) {
-        Contacto contactoSeleccionado = null;
-        for (int i = 0; i < getContactos().size(); i++) {
+      public Contacto buscarContacto(int index){
+            Contacto contactoSeleccionado = null;
+        for(int i = 0; i< getContactos().size();i++){
             contactoSeleccionado = getContactos().get(index);
         }
         return contactoSeleccionado;
-    }
+      }
 
     public ArrayList<Contacto> getContactos() {
         return contactos;
