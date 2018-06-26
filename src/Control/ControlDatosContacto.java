@@ -5,15 +5,11 @@
  */
 package Control;
 
-import Modelo.Agenda;
 import Modelo.Contacto;
 import Vista.DatosContacto;
-import Vista.VistaContactos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,66 +19,33 @@ public class ControlDatosContacto implements ActionListener {
 
     DatosContacto datosContacto;
     Contacto contacto;
-    Agenda agenda;
     DefaultListModel modelo = new DefaultListModel();
-    ArrayList<Contacto> contactos = null;
 
-    public ControlDatosContacto(DatosContacto datosContacto, Agenda agenda, Contacto contacto) {
+    public ControlDatosContacto(DatosContacto datosContacto, Contacto contacto) {
         this.datosContacto = datosContacto;
         this.contacto = contacto;
-        this.agenda = agenda;
-        DatosContacto.Añadir.addActionListener(this);
-        DatosContacto.Agregar.addActionListener(this);
-        DatosContacto.Eliminar.addActionListener(this);
+        DatosContacto.regresar.addActionListener(this);
     }
 
     public void iniciar() {
         datosContacto.setVisible(true);
+        desplegarInformacion();
     }
 
-    private void agendarContacto() {
-        agenda.guardarContacto(contacto);
-    }
-
-    private void setDatos() {
-        ArrayList numeros = new ArrayList();
-        for (int i = 0; i < modelo.getSize(); i++) {
-            numeros.add(modelo.getElementAt(i));
-            System.out.println("Numero " + modelo.getElementAt(i));
+    private void desplegarInformacion() {
+        String nombre = contacto.getNombre();
+        DatosContacto.nombre.setText(nombre);
+        for (int i = 0; i < contacto.getNumeros().size(); i++) {
+            modelo.addElement(contacto.getNumeros().get(i));
         }
-        contacto = new Contacto(DatosContacto.Nombre.getText(), numeros);
-
+        DatosContacto.numeros.setModel(modelo);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (DatosContacto.Añadir == e.getSource()) {
-            setDatos();
-            agendarContacto();
-            VistaContactos vistaInicial = new VistaContactos();
-            ControlVistaContactos contactosAnadidos = new ControlVistaContactos(vistaInicial, agenda);
-            contactosAnadidos.contactosAnadidos();
-
+        if (e.getSource() == DatosContacto.regresar) {
             datosContacto.setVisible(false);
         }
-        if (DatosContacto.Agregar == e.getSource()) {
-            if (!DatosContacto.telefono.getText().equals("")) {
-                String telefono = DatosContacto.telefono.getText();
-                modelo.addElement(telefono);
-                DatosContacto.telefonos.setModel(modelo);
-                DatosContacto.telefono.setText(null);
-            } else {
-                JOptionPane.showMessageDialog(null, "Debe llenar el campo");
-            }
-
-        }
-        if (DatosContacto.Eliminar == e.getSource()) {
-            if (!DatosContacto.telefonos.isSelectionEmpty()) {
-                int valor = DatosContacto.telefonos.getSelectedIndex();
-                modelo.remove(valor);
-            } else {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar número");
-            }
-        }
     }
+
 }

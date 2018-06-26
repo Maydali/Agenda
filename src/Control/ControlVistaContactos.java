@@ -8,6 +8,7 @@ package Control;
 import Modelo.Agenda;
 import Modelo.Contacto;
 import Vista.DatosContacto;
+import Vista.RegistroContacto;
 import Vista.VistaContactos;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,7 +27,6 @@ public class ControlVistaContactos implements ActionListener {
 
     VistaContactos vistaContactos;
     ArrayList<Contacto> contactoArreglo = new ArrayList<>();
-    ;
     Agenda agenda;
     Contacto contacto;
     DefaultListModel modelo = new DefaultListModel();
@@ -71,21 +70,46 @@ public class ControlVistaContactos implements ActionListener {
         VistaContactos.panel.repaint();
         vistaContactos.setVisible(true);
 
+        contactos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int id = contactos.getSelectedIndex();
+                    Contacto seleccionado = agenda.buscarContacto(id);
+                    DatosContacto datosContacto = new DatosContacto();
+                    ControlDatosContacto datos = new ControlDatosContacto(datosContacto, seleccionado);
+                    datos.iniciar();
+                    System.out.println("Se ha hecho 2 click");
+                }
+            }
+
+        });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (VistaContactos.añadir == e.getSource()) {
-            DatosContacto datosContacto = new DatosContacto();
-            ControlDatosContacto controlDatos = new ControlDatosContacto(datosContacto, agenda, contacto);
+            RegistroContacto datosContacto = new RegistroContacto();
+            ControlRegistroContacto controlDatos = new ControlRegistroContacto(datosContacto, agenda, contacto);
             controlDatos.iniciar();
             vistaContactos.setVisible(false);
         }
         if (e.getActionCommand().equals("Actualizar")) {
-            JOptionPane.showMessageDialog(null, "Actualizar");
+            int id = contactos.getSelectedIndex();
+            Contacto seleccionado = agenda.buscarContacto(id);
+            RegistroContacto actualizarContacto = new RegistroContacto();
+            ControlRegistroContacto controlRegistro = new ControlRegistroContacto(actualizarContacto, agenda, seleccionado);
+            controlRegistro.actualizarContacto();
+
         }
         if (e.getActionCommand().equals("Borrar")) {
-            JOptionPane.showMessageDialog(null, "Borrar");
+            int id = contactos.getSelectedIndex();
+            Contacto seleccionado = agenda.buscarContacto(id);
+            agenda.eliminarContacto(seleccionado);
+            modelo.remove(id);
+            for (int i = 0; i < agenda.getContactos().size(); i++) {
+                System.out.println("contactosexistentes " + agenda.getContactos().get(i).getNombre());
+            }
+
         }
     }
 

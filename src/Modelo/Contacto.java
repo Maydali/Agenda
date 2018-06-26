@@ -24,6 +24,10 @@ public class Contacto {
         this.numeros = numeros;
     }
 
+    public void eliminarNumero(int index) {
+        getNumeros().remove(index);
+    }
+
     public String getNombre() {
         return nombre;
     }
