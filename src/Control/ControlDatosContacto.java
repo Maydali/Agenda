@@ -17,9 +17,9 @@ import javax.swing.DefaultListModel;
  */
 public class ControlDatosContacto implements ActionListener {
 
-    DatosContacto datosContacto;
-    Contacto contacto;
-    DefaultListModel modelo = new DefaultListModel();
+    private DatosContacto datosContacto;
+    private Contacto contacto;
+    private DefaultListModel modelo = new DefaultListModel();
 
     public ControlDatosContacto(DatosContacto datosContacto, Contacto contacto) {
         this.datosContacto = datosContacto;
@@ -30,6 +30,7 @@ public class ControlDatosContacto implements ActionListener {
     public void iniciar() {
         datosContacto.setVisible(true);
         desplegarInformacion();
+
     }
 
     private void desplegarInformacion() {

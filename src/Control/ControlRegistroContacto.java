@@ -21,11 +21,11 @@ import javax.swing.JOptionPane;
  */
 public class ControlRegistroContacto implements ActionListener {
 
-    RegistroContacto datosContacto;
-    Contacto contacto;
-    Agenda agenda;
-    DefaultListModel modelo = new DefaultListModel();
-    ArrayList<Contacto> contactos = null;
+    private RegistroContacto datosContacto;
+    private Contacto contacto;
+    private Agenda agenda;
+    private DefaultListModel modelo = new DefaultListModel();
+    private ArrayList<Contacto> contactos = null;
 
     public ControlRegistroContacto(RegistroContacto datosContacto, Agenda agenda, Contacto contacto) {
         this.datosContacto = datosContacto;

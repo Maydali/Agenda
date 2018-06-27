@@ -26,12 +26,12 @@ import javax.swing.JOptionPane;
  */
 public class ControlVistaContactos implements ActionListener {
 
-    VistaContactos vistaContactos;
-    ArrayList<Contacto> contactoArreglo = new ArrayList<>();
-    Agenda agenda;
-    Contacto contacto;
-    DefaultListModel modelo = new DefaultListModel();
-    JList contactos = new JList();
+    private VistaContactos vistaContactos;
+    private ArrayList<Contacto> contactoArreglo = new ArrayList<>();
+    private Agenda agenda;
+    private Contacto contacto;
+    private DefaultListModel modelo = new DefaultListModel();
+    private JList contactos = new JList();
 
     public ControlVistaContactos() {
     }
@@ -43,6 +43,7 @@ public class ControlVistaContactos implements ActionListener {
     }
 
     public void iniciar() {
+     
         vistaContactos.setVisible(true);
 
     }
@@ -86,7 +87,7 @@ public class ControlVistaContactos implements ActionListener {
         });
     }
 
-    public boolean seleccionado() {
+    private boolean seleccionado() {
         if (!contactos.isSelectionEmpty()) {
             return true;
         } else {
